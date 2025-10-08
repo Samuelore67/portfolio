@@ -3,14 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sammy Portfolio</title>
-
-  <!-- Tailwind -->
+  <title>Sammy-Dev | Portfolio</title>
   <link rel="stylesheet" href="./output.css">
-
-  <!-- Favicon -->
   <link rel="shortcut icon" href="images/rounded_favicon.png" type="image/x-icon">
-
   <!-- Font Awesome -->
   <link
     rel="stylesheet"
@@ -18,247 +13,232 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-
-  <!-- Roles Animation -->
+  <!-- STYLE & ANIMATIONS -->
   <style>
-    .roles::before {
-      content: "Developer";
-      animation: changeRole 16s infinite;
+    html {
+      scroll-behavior: smooth;
     }
-    @keyframes changeRole {
-      0%   { content: "Developer"; }
-      12.5% { content: "Frontend Developer"; }
-      25% { content: "UI/UX Designer"; }
-      37.5% { content: "Mobile-App Designer"; }
-      50% { content: "Web Designer"; }
-      62.5% { content: "Graphics Designer"; }
-      75% { content: "Keyboardist"; }
-      87.5% { content: "Guitarist"; }
-      100% { content: "Developer"; }
+
+    /* Skeleton Loader */
+    #skeleton-loader {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(120deg, #1e40af, #2563eb, #60a5fa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      animation: fadeOut 1s ease-out 2.5s forwards;
     }
+
+    .skeleton-logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, #ffffff33, #ffffff88, #ffffff33);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite linear;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    /* Smooth Section Entrance */
+    .hidden-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Glow Animation */
+    .glow {
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 10px rgba(37,99,235,0.5); }
+      to { box-shadow: 0 0 30px rgba(37,99,235,0.9); }
+    }
+
+    /* Typewriter Cursor */
+    .roles::after {
+      content: '|';
+      animation: blink 1s infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* Base fade + slide (from your current animations) */
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in-up {
+      animation: fade-in-up 1s ease-out forwards;
+    }
+     /* Skill Tag Styles */
+  .skill-tag {
+    background-color: white;
+    color: #1e40af;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    animation: fade-down 1.2s ease-in-out both;
+  }
+
+  .skill-tag:hover {
+    background-color: #2563eb;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.5);
+  }
+
+  /* Dark mode fix */
+  .dark .skill-tag {
+    background-color: #1e293b;
+    color: #e2e8f0;
+  }
+  .dark .skill-tag:hover {
+    background-color: #2563eb;
+    color: white;
+  }
   </style>
 </head>
 <body class="bg-blue-50 dark:bg-slate-950 dark:text-white">
-
-  <!-- HEADER -->
-  <header class="sticky top-0 bg-blue-100 dark:bg-slate-950 shadow z-50">
+  <!--  SKELETON LOADER -->
+  <div id="skeleton-loader">
+    <div class="skeleton-logo"></div>
+  </div>
+  <!--  HEADER -->
+  <header class="sticky top-0 bg-blue-100 dark:bg-slate-950 shadow-lg z-50 backdrop-blur-lg transition-all duration-500">
     <div class="container mx-auto flex justify-between items-center p-4">
-
-      <!-- Logo -->
-      <h1 class="font-bold text-xl">Sammy-Dev</h1>
-
+      <h1 class="font-bold text-2xl text-blue-700 dark:text-blue-400"><a href="index.html">Sammy-Dev</a></h1>
       <!-- Desktop Menu -->
       <nav class="hidden lg:flex space-x-6">
-        <a href="index.html" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"">Home</a>
-        <a href="#about" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"">About</a>
-        <a href="#services" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"">Services</a>
-        <a href="#projects" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"">Projects</a>
-        <a href="#contact" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"">Contact</a>
+        <a href="#home" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full"">Home</a>
+        <a href="#about" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">About</a>
+        <a href="#services" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Services</a>
+        <a href="#contact" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
       </nav>
 
-      <!-- Right: Socials + Dark mode + Mobile menu -->
-      <div class="flex items-center gap-3">
-        <a href="#"><i class="fa-solid fa-phone hover:text-green-600"></i></a>
+      <!-- Right Icons -->
+      <div class="flex items-center gap-4">
         <a href="#"><i class="fa-brands fa-facebook hover:text-blue-600"></i></a>
         <a href="#"><i class="fa-brands fa-whatsapp hover:text-green-600"></i></a>
-        <a href="#"><i class="fa-brands fa-linkedin-in hover:text-blue-600"></i></i></a>
-        <a href="#"><i class="fa-brands fa-pinterest hover:text-blue-600"></i></a>
-        <i onclick="document.documentElement.classList.toggle('dark')" 
-           class="fa-solid fa-moon cursor-pointer"></i>
-        <button id="menu-btn" class="lg:hidden text-2xl">
-          <i class="fa-solid fa-bars"></i>
-        </button>
+        <a href="#"><i class="fa-brands fa-linkedin hover:text-blue-600"></i></a>
+        <i onclick="document.documentElement.classList.toggle('dark')" class="fa-solid fa-moon cursor-pointer"></i>
+        <button id="menu-btn" class="lg:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
       </div>
     </div>
 
     <!-- Mobile Menu -->
     <nav id="menu" class="hidden flex-col gap-4 px-6 pb-4 lg:hidden">
-      <a href="#home" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Home</a>
-      <a href="#about" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">About</a>
-      <a href="#services" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Services</a>
-      <a href="#projects" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Projects</a>
-      <a href="#contact" class="relative text-black dark:text-white font-medium transition-colors duration-300 hover:text-blue-600 after:content-[''] after:absolute after:w-0 after:h-[2px] after:bg-blue-600 after:left-0 after:-bottom-1 after:transition-all after:duration-300 hover:after:w-full">Contact</a>
+      <a href="#home" class="hover:text-blue-600">Home</a>
+      <a href="#about" class="hover:text-blue-600">About</a>
+      <a href="#services" class="hover:text-blue-600">Services</a>
+      <a href="#contact" class="hover:text-blue-600">Contact</a>
     </nav>
-
-    <!-- Marquee -->
-    <div class="bg-blue-600 text-white py-2 text-sm">
-      <marquee>🚀 Welcome to My Portfolio | 💻 Clean Websites | 🎨 Creative UI | 📱 Frontend Developer</marquee>
-    </div>
   </header>
 
-  <!-- HERO -->
-  <section id="home" style="background-image: url('images/Daken personal image.png')" 
-           class="bg-cover bg-center h-[500px] flex items-center">
-    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-6">
-
-      <!-- Text -->
-      <div class="text-white bg-black/50 p-6 rounded-xl max-w-lg">
-        <p class="text-lg">Hi, I'm <span class="font-bold">Sammy-Dev</span></p>
-        <h1 class="text-4xl font-extrabold mt-2">Samuelore-Dev</h1>
-        <p class="mt-4 text-xl">I'm a <span class="roles text-blue-300 font-semibold"></span></p>
+  <!--  HERO SECTION -->
+  <section id="home" class="relative bg-cover bg-center min-h-[90vh] flex items-center justify-center text-center overflow-hidden"
+           style="background-image: url('images/Daken personal image.png');">
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative container mx-auto flex flex-col md:flex-row items-center justify-between px-6 gap-10 z-10">
+      <div class="text-white max-w-lg animate-fade-in-up">
+        <p class="text-lg mb-2">Hi, I'm <span class="font-bold text-blue-400">Sammy-Dev</span></p>
+        <h1 class="text-5xl font-extrabold mb-4 text-blue-200 drop-shadow-md">Samuelore-Dev</h1>
+        <p class="text-2xl">I'm a <span class="roles text-blue-400 font-semibold"></span></p>
       </div>
 
-      <!-- Profile Image -->
-      <img src="images/my apple pics.jpg" 
-           alt="Sammy Dev" 
-           class="w-40 h-40 md:w-56 md:h-56 rounded-full border-4 border-white shadow-lg">
+      <div class="flex justify-center md:justify-end animate-fade-in-up">
+        <img src="images/my apple pics.jpg" alt="Sammy Dev" class="w-44 h-44 md:w-56 md:h-56 rounded-full border-4 border-white shadow-2xl hover:scale-105 glow transition-all duration-500">
+      </div>
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="py-16 bg-blue-50 dark:bg-slate-950">
+  <!--  ABOUT -->
+  <section id="about" class="py-20 bg-blue-50 dark:bg-slate-950 transition-all duration-500 hidden-section">
     <div class="container mx-auto px-6">
-      <h2 class="font-bold text-center text-3xl mb-8">About Me</h2>
-
+      <h2 class="font-bold text-center text-4xl mb-12 text-slate-900 dark:text-white">About Me</h2>
       <div class="flex flex-col md:flex-row items-center gap-10">
-        <!-- Image -->
         <div class="md:w-1/3 flex justify-center">
-          <img src="images/my apple pics.jpg" alt="About Sammy" 
-               class="rounded-lg shadow-lg w-64 h-64 object-cover">
+          <img src="images/my apple pics.jpg" alt="About Sammy" class="rounded-2xl shadow-2xl w-64 h-64 md:w-80 md:h-80 object-cover hover:scale-105 transition">
         </div>
+        <div class="md:w-2/3 text-gray-700 dark:text-gray-200">
+          <p class="mb-4 text-lg">Hi 👋, I’m <span class="font-semibold text-blue-600">Sammy-Dev</span>, a passionate developer who loves creating responsive and engaging web experiences.</p>
+          <p class="text-lg">Outside coding, I explore <span class="text-purple-600">music 🎸🎹</span> and <span class="text-green-600">design 🎨</span>. I aim to build products that inspire and make an impact.</p>
 
-        <!-- Text -->
-        <div class="md:w-2/3 text-gray-700 dark:text-white leading-relaxed">
-          <p class="mb-4">
-            Hi 👋, I’m <span class="font-semibold">Sammy-Dev</span>, a passionate developer who loves building clean, 
-            responsive, and user-friendly applications. With experience in 
-            <span class="text-blue-600 font-medium">Frontend Development, UI/UX Design, and Mobile Apps Designer</span>, 
-            I enjoy turning ideas into digital products.
-          </p>
-          <p>
-            Outside coding, I explore creativity through 
-            <span class="text-purple-600 font-medium">music 🎸🎹</span> and 
-            <span class="text-green-600 font-medium">graphic design 🎨</span>. 
-            My goal is to keep learning, growing, and delivering projects that inspire.
-          </p>
-          <br>
-          <h1 class="font-bold text-2xl">My Skills</h1>
-        <div class="md:flex gap-3 ">
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Html</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Css</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Java-scripts</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Tailwind</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">React</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Figma</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Corel-draw</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Adobe</p>
-        </div>
-        <div class="md:flex gap-3 ">
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Micro-soft's</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Canva</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">GitHup</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Git</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Capcut</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Inshot</p>
-            <p class="shadow-md p-1 rounded-lg hover:border border-solid border-blue-600 cursor-pointer mt-3 hover:bg-blue-700 hover:text-white">Photo-shop</p>
-        </div>
+          <div class="mt-8">
+            <h1 class="font-bold text-2xl mb-4">My Skills</h1>
+            <div class="flex flex-wrap gap-3">
+              <p class="skill-tag">HTML</p><p class="skill-tag">CSS</p><p class="skill-tag">JavaScript</p>
+              <p class="skill-tag">Tailwind</p>
+              <p class="skill-tag">Figma</p>
+              <p class="skill-tag">CorelDraw</p><p class="skill-tag">Photoshop</p><p class="skill-tag">GitHup</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SERVICES (Placeholder) -->
-  <section id="services" class="bg-blue-50 dark:bg-slate-950 py-16 max-h-fit">
+  <!-- SERVICES -->
+  <section id="services" class="bg-blue-50 dark:bg-slate-950 py-20 overflow-hidden hidden-section">
     <div class="container mx-auto px-6 text-center">
-      <h2 class="font-bold text-3xl mb-6">My Services</h2>
-      <p class="text-gray-600 dark:text-gray-300"></p>
+      <h2 class="font-bold text-4xl mb-6 text-slate-900 dark:text-white">My Services</h2>
+      <p class="text-gray-600 dark:text-gray-300 mb-10 text-lg">I create modern, responsive, and user-friendly digital experiences.</p>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 max-h-fit p-7 gap-5">
-        <div class="bg-blue-50 dark:bg-slate-900 hover:shadow-blue-600 hover:shadow-md ease-in-out duration-300 shadow-lg">
-            <p class="text-6xl text-center font-extrabold p-3 pt-10"><i class="fa-solid fa-code fa-beat-fade text-blue-500"></i></p><br>
-            <h1 class="text-center font-bold text-2xl">Web Development</h1>
-            <p class="text-center text-xl pt-3 font-medium">Custom website development<br>tailored to your specific needs, built
-                <br>with modern techologies and best<br>practices</p>
-        </div>
-        <div class="bg-blue-50 dark:bg-slate-900 hover:shadow-blue-600 hover:shadow-md ease-in-out duration-300 shadow-lg">
-            <p class="text-6xl text-center font-extrabold p-3 pt-10"><i class="fa-solid fa-mobile-screen-button fa-beat-fade text-blue-500"></i></p><br>
-            <h1 class="text-center font-bold text-2xl">Responsive Design and Web</h1>
-            <p class="text-center text-xl pt-3 font-medium">Websites that look and function <br>Perfectly on all devices, from desktop <br>to Mobile</p>
-        </div>
-        <div class="bg-blue-50 dark:bg-slate-900 hover:shadow-blue-600 hover:shadow-md ease-in-out duration-300 shadow-lg">
-            <p class="text-6xl text-center font-extrabold p-3 pt-10"><i class="fa-solid fa-paintbrush fa-beat-fade text-blue-500"></i></p><br>
-            <h1 class="text-center font-bold text-2xl">Ui/Ux Design</h1>
-            <p class="text-center text-xl pt-3 font-medium">Beauty, intuitive interface designed <br>with user experinces at the forefront.</p>
-        </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 md:px-12">
+      <div class="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:scale-105 transition-all duration-500 hover:shadow-blue-500/40 p-10 text-center">
+        <div class="text-6xl text-blue-500 mb-6 group-hover:animate-pulse"><i class="fa-solid fa-code"></i></div>
+        <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+        <p>Custom, optimized websites built for performance and SEO.</p>
+      </div>
+
+      <div class="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:scale-105 transition-all duration-500 hover:shadow-blue-500/40 p-10 text-center">
+        <div class="text-6xl text-blue-500 mb-6 group-hover:animate-pulse"><i class="fa-solid fa-mobile-screen-button"></i></div>
+        <h3 class="text-2xl font-bold mb-4">Responsive Design</h3>
+        <p>Beautifully adaptive websites for all devices.</p>
+      </div>
+
+      <div class="group bg-white dark:bg-slate-900 rounded-2xl shadow-lg hover:scale-105 transition-all duration-500 hover:shadow-blue-500/40 p-10 text-center">
+        <div class="text-6xl text-blue-500 mb-6 group-hover:animate-pulse"><i class="fa-solid fa-paintbrush"></i></div>
+        <h3 class="text-2xl font-bold mb-4">UI / UX Design</h3>
+        <p>Clean, intuitive interfaces for better user engagement.</p>
+      </div>
     </div>
   </section>
 
-  <!-- PROJECTS (Placeholder) -->
-  <section id="projects" class="py-16 bg-gray-100 dark:bg-slate-900">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="font-bold text-3xl mb-6">Projects</h2>
-      <p class="text-gray-600 dark:text-gray-300">This is my Project</p>
-    </div>
-  </section>
-
-  <!-- CONTACT (Placeholder) -->
-  <section id="contact" class="py-16">
-    <div class="container mx-auto px-6 text-center">
-      <h2 class="font-bold text-3xl mb-6">Contact Me</h2>
-      <p class="text-gray-600 dark:text-gray-300">📩 Get in touch via email or social links.</p>
-    </div>
-    <!-- MAP -->
-<div class="mt-10">
-  <iframe 
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.357088241928!2d3.379205715237009!3d6.524379325250555!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf50b65dfcb05%3A0xeec8d8a41b7f6d6!2sLagos%20Nigeria!5e0!3m2!1sen!2sng!4v1695909243000!5m2!1sen!2sng" 
-    width="100%" 
-    height="400" 
-    style="border:0;" 
-    allowfullscreen="" 
-    loading="lazy" 
-    referrerpolicy="no-referrer-when-downgrade"
-    class="rounded-lg shadow-lg">
-  </iframe>
-</div>
-
-<section class="py-16 px-6 md:px-20 bg-slate-50 dark:bg-slate-900">
-  <div class="max-w-4xl mx-auto bg-white dark:bg-slate-800 shadow-lg rounded-xl p-8 md:p-12">
-    
-    <h2 class="text-3xl font-bold mb-6 text-center text-slate-800 dark:text-white">
-      Get in Touch
-    </h2>
-    <p class="text-center text-slate-600 dark:text-slate-300 mb-10">
-      Have questions, feedback, or ideas? Fill out the form below and we’ll get back to you soon.
-    </p>
-
-    <form class="space-y-6">
-      <div>
-        <label for="name" class="block text-slate-700 dark:text-slate-200 font-semibold">Name</label>
-        <input type="text" id="name" class="w-full p-3 border rounded-lg shadow-sm dark:bg-slate-700 dark:text-white" placeholder="Enter your name">
-      </div>
-
-      <div>
-        <label for="email" class="block text-slate-700 dark:text-slate-200 font-semibold">Email</label>
-        <input type="email" id="email" class="w-full p-3 border rounded-lg shadow-sm dark:bg-slate-700 dark:text-white" placeholder="Enter your email">
-      </div>
-
-      <div>
-        <label for="message" class="block text-slate-700 dark:text-slate-200 font-semibold">Message</label>
-        <textarea id="message" rows="5" class="w-full p-3 border rounded-lg shadow-sm dark:bg-slate-700 dark:text-white" placeholder="Write your message"></textarea>
-      </div>
-
-      <button onclick="alert('Thank you for your contact')" type="suBmit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-semibold shadow-lg transition">
-        Send Message
-      </button>
-    </form>
-  </div>
-</section>
-
-<section class="py-10 bg-white dark:bg-slate-800">
-  <div class="max-w-4xl mx-auto text-center">
-    <h3 class="text-2xl font-bold mb-4 text-slate-800 dark:text-white">Other Ways to Reach Us</h3>
+  <!-- CONTACT -->
+  <section id="contact" class="py-20 bg-slate-50 dark:bg-slate-900 text-center hidden-section">
+    <h2 class="font-bold text-3xl mb-4 text-slate-800 dark:text-white">Contact Me</h2>
+    <p class="text-gray-600 dark:text-gray-300 mb-10">📩 Get in touch via email or social links below.</p>
     <p class="text-slate-600 dark:text-slate-300">📍 <a class="hover:text-orange-400" href="">Lagos, Nigeria</a></p>
     <p class="text-slate-600 dark:text-slate-300">📧 samuelore242@icloud.com</p>
     <p class="text-slate-600 dark:text-slate-300">📞 +234 905 076 6830 <a href="tel:+2349050766830" class="text-blue-500 hover:underline">Call Me</a></p>
 
-    <div class="flex justify-center gap-6 mt-6 text-2xl">
-      <a href="#"><i class="fa-brands fa-facebook hover:text-orange-500"></i></a>
-      <a href="#"><i class="fa-brands fa-twitter hover:text-orange-500"></i></a>
-      <a href="#"><i class="fa-brands fa-instagram hover:text-orange-500"></i></a>
+    <div class="flex justify-center gap-6 text-2xl">
+      <a href="#"><i class="fa-brands fa-facebook hover:text-blue-500"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram hover:text-pink-500"></i></a>
+      <a href="#"><i class="fa-brands fa-linkedin hover:text-blue-500"></i></a>
     </div>
-  </div>
-</section>
-
   </section>
 
   <!-- FOOTER -->
@@ -268,7 +248,7 @@
 
   <!-- SCRIPT -->
   <script>
-    // Mobile menu toggle
+    // Mobile Menu
     const menuBtn = document.getElementById("menu-btn");
     const menu = document.getElementById("menu");
     menuBtn.addEventListener("click", () => {
@@ -276,16 +256,38 @@
       menu.classList.toggle("flex");
     });
 
-    let timeout;
-window.addEventListener('scroll', () => {
-  clearTimeout(timeout);
-  timeout = setTimeout(() => {
-    // perform lightweight operations
-  }, 100);
-});
+    // Typewriter Roles
+    const roles = ["Frontend Developer", "UI/UX Designer", "Graphics Designer", "Mobile App Designer"];
+    const rolesElement = document.querySelector(".roles");
+    let roleIndex = 0, charIndex = 0, isDeleting = false;
 
+    function typeEffect() {
+      const currentRole = roles[roleIndex];
+      rolesElement.textContent = isDeleting
+        ? currentRole.substring(0, charIndex--)
+        : currentRole.substring(0, charIndex++);
+      if (!isDeleting && charIndex === currentRole.length) { isDeleting = true; setTimeout(typeEffect, 1000); }
+      else if (isDeleting && charIndex === 0) { isDeleting = false; roleIndex = (roleIndex + 1) % roles.length; setTimeout(typeEffect, 500); }
+      else setTimeout(typeEffect, isDeleting ? 60 : 120);
+    }
+    document.addEventListener("DOMContentLoaded", typeEffect);
+
+    // Skeleton Loader
+    window.addEventListener("load", () => {
+      document.getElementById("skeleton-loader").style.display = "none";
+    });
+
+    // Reveal on Scroll
+    const hiddenSections = document.querySelectorAll(".hidden-section");
+    const reveal = () => {
+      const trigger = window.innerHeight * 0.8;
+      hiddenSections.forEach(sec => {
+        const top = sec.getBoundingClientRect().top;
+        if (top < trigger) sec.classList.add("visible");
+      });
+    };
+    window.addEventListener("scroll", reveal);
+    reveal();
   </script>
-  
-
 </body>
 </html>
